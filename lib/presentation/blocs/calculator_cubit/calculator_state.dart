@@ -8,9 +8,9 @@ class CalculatorState extends Equatable {
   final String operation;
 
   const CalculatorState({
-    this.result = '30',
-    this.firstNumber = '10',
-    this.secondNumber = '20',
+    this.result = '0',
+    this.firstNumber = '0',
+    this.secondNumber = '0',
     this.operation = '+',
   });
 
