@@ -52,12 +52,12 @@ class _CalculatorCubitView extends StatelessWidget {
                         CalculatorButton(
                           text: '+/-',
                           bgColor: const Color(0xffA5A5A5),
-                          onPressed: () => print('+/-'),
+                          onPressed: () => cubit.changeNegativePositive(),
                         ),
                         CalculatorButton(
                           text: 'del',
                           bgColor: const Color(0xffA5A5A5),
-                          onPressed: () => print('del'),
+                          onPressed: () => cubit.deleteNumber(),
                         ),
                         CalculatorButton(
                           text: '/',

@@ -7,7 +7,9 @@ class CalculatorCubit extends Cubit<CalculatorState> {
   CalculatorCubit() : super(const CalculatorState());
 
   void addNumber(String number){
+    
     if(state.isSecondNumber == false){
+      if(number == '.' && state.firstNumber.contains('.')) return;
       if (state.firstNumber == '0'){
         emit(state.copyWith(
           firstNumber: number,
@@ -18,6 +20,7 @@ class CalculatorCubit extends Cubit<CalculatorState> {
         ));
       }
     }else {
+      if(number == '.' && state.secondNumber.contains('.')) return;
       if (state.secondNumber == '0'){
         emit(state.copyWith(
           secondNumber: number,
@@ -60,7 +63,6 @@ class CalculatorCubit extends Cubit<CalculatorState> {
         result = num1 / num2;
       break;
     }
-    print(result);
     emit(state.copyWith(
       firstNumber: '0',
       secondNumber: '0',
@@ -82,6 +84,36 @@ class CalculatorCubit extends Cubit<CalculatorState> {
   }
 
   void deleteNumber(){
-    
+    if(state.isSecondNumber == false){
+      emit(state.copyWith(
+        firstNumber: (state.firstNumber.length > 1) 
+                    ? state.firstNumber.substring(0, state.firstNumber.length - 1)
+                    : '0'
+      ));
+    } else {
+      emit(state.copyWith(
+        secondNumber: (state.secondNumber.length > 1) 
+                    ? state.secondNumber.substring(0, state.secondNumber.length - 1)
+                    : '0'
+      ));
+    }
+  }
+
+  void changeNegativePositive(){
+    if(state.isSecondNumber == false){
+      if (state.firstNumber == '0') return;
+      emit(state.copyWith(
+        firstNumber: (state.firstNumber.contains('-')) 
+                    ? state.firstNumber.replaceFirst('-', '')
+                    : '-${state.firstNumber}'
+      ));
+    } else {
+      if (state.secondNumber == '0') return;
+      emit(state.copyWith(
+        secondNumber: (state.secondNumber.contains('-')) 
+                    ? state.secondNumber.replaceFirst('-', '')
+                    : '-${state.secondNumber}'
+      ));
+    }
   }
 }
