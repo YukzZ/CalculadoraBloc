@@ -1,8 +1,22 @@
+import 'package:calculadora_flutter/presentation/blocs/calculator_bloc/calculator_bloc.dart';
 import 'package:calculadora_flutter/presentation/widgets/widgets.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 class CalculatorBlocScreen extends StatelessWidget {
   const CalculatorBlocScreen({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return BlocProvider(
+      create: (_) => CalculatorBloc(),
+      child: const BlocCalculatorView(),
+    );
+  }
+}
+
+class BlocCalculatorView extends StatelessWidget {
+  const BlocCalculatorView({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -20,11 +34,11 @@ class CalculatorBlocScreen extends StatelessWidget {
                 child: Container(),
               ),
 
-              const SubResult( text: '1000' ),
-              const SubResult( text: 'X' ),
-              const SubResult( text: '1000' ),
+              SubResult( text: context.select((CalculatorBloc calculatorBloc) => calculatorBloc.state.firstNumber) ),
+              SubResult( text: context.select((CalculatorBloc calculatorBloc) => calculatorBloc.state.operation) ),
+              SubResult( text: context.select((CalculatorBloc calculatorBloc) => calculatorBloc.state.secondNumber) ),
               const LineSeparator(),
-              const MainResultText( text: '2000' ),
+              MainResultText( text: context.select((CalculatorBloc calculatorBloc) => calculatorBloc.state.result) ),
 
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,
@@ -32,22 +46,22 @@ class CalculatorBlocScreen extends StatelessWidget {
                   CalculatorButton( 
                     text: 'AC',
                     bgColor: const Color(0xffA5A5A5 ),
-                    onPressed: () => print('AC'),
+                    onPressed: () => context.read<CalculatorBloc>().add(Reset()),
                   ),
                   CalculatorButton( 
                     text: '+/-',
                     bgColor: const Color(0xffA5A5A5 ),
-                    onPressed: () => print('+/-'),
+                    onPressed: () => context.read<CalculatorBloc>().add(ChangeNegativePositive()),
                   ),
                   CalculatorButton( 
                     text: 'del',
                     bgColor: const Color(0xffA5A5A5 ),
-                    onPressed: () => print('del'),
+                    onPressed: () => context.read<CalculatorBloc>().add(DeleteNumber()),
                   ),
                   CalculatorButton( 
                     text: '/',
                     bgColor: const Color(0xffF0A23B ),
-                    onPressed: () => print('/'),
+                    onPressed: () => context.read<CalculatorBloc>().add(const AddOperator('/')),
                   ),
                 ],
               ),
@@ -57,20 +71,20 @@ class CalculatorBlocScreen extends StatelessWidget {
                 children: [
                   CalculatorButton( 
                     text: '7',
-                    onPressed: () => print('7'),
+                    onPressed: () => context.read<CalculatorBloc>().add(const AddNumber('7')),
                   ),
                   CalculatorButton( 
                     text: '8',
-                    onPressed: () => print('8'),
+                    onPressed: () => context.read<CalculatorBloc>().add(const AddNumber('8')),
                   ),
                   CalculatorButton( 
                     text: '9',
-                    onPressed: () => print('9'),
+                    onPressed: () => context.read<CalculatorBloc>().add(const AddNumber('9')),
                   ),
                   CalculatorButton( 
                     text: 'X',
                     bgColor: const Color(0xffF0A23B ),
-                    onPressed: () => print('X'),
+                    onPressed: () => context.read<CalculatorBloc>().add(const AddOperator('X')),
                   ),
                 ],
               ),
@@ -80,20 +94,20 @@ class CalculatorBlocScreen extends StatelessWidget {
                 children: [
                   CalculatorButton( 
                     text: '4', 
-                    onPressed: () => print('4'),
+                    onPressed: () => context.read<CalculatorBloc>().add(const AddNumber('4')),
                   ),
                   CalculatorButton( 
                     text: '5', 
-                    onPressed: () => print('5'),
+                    onPressed: () => context.read<CalculatorBloc>().add(const AddNumber('5')),
                   ),
                   CalculatorButton( 
                     text: '6', 
-                    onPressed: () => print('6'),
+                    onPressed: () => context.read<CalculatorBloc>().add(const AddNumber('6')),
                   ),
                   CalculatorButton( 
                     text: '-',
                     bgColor: const Color(0xffF0A23B ),
-                    onPressed: () => print('-'),
+                    onPressed: () => context.read<CalculatorBloc>().add(const AddOperator('-')),
                   ),
                 ],
               ),
@@ -103,20 +117,20 @@ class CalculatorBlocScreen extends StatelessWidget {
                 children: [
                   CalculatorButton( 
                     text: '1', 
-                    onPressed: () => print('1'),
+                    onPressed: () => context.read<CalculatorBloc>().add(const AddNumber('1')),
                   ),
                   CalculatorButton( 
                     text: '2', 
-                    onPressed: () => print('2'),
+                    onPressed: () => context.read<CalculatorBloc>().add(const AddNumber('2')),
                   ),
                   CalculatorButton( 
                     text: '3', 
-                    onPressed: () => print('3'),
+                    onPressed: () => context.read<CalculatorBloc>().add(const AddNumber('3')),
                   ),
                   CalculatorButton(
                     text: '+',  
                     bgColor: const Color(0xffF0A23B ),
-                    onPressed: () => print('+'),
+                    onPressed: () => context.read<CalculatorBloc>().add(const AddOperator('+')),
                   ),
                 ],
               ),
@@ -127,16 +141,16 @@ class CalculatorBlocScreen extends StatelessWidget {
                   CalculatorButton( 
                     text: '0', 
                     big: true,
-                    onPressed: () => print('0'),
+                    onPressed: () => context.read<CalculatorBloc>().add(const AddNumber('0')),
                   ),
                   CalculatorButton( 
                     text: '.', 
-                    onPressed: () => print('.'),
+                    onPressed: () => context.read<CalculatorBloc>().add(const AddNumber('.')),
                   ),
                   CalculatorButton( 
                     text: '=',
                     bgColor: const Color(0xffF0A23B ),
-                    onPressed: () => print('='),
+                    onPressed: () => context.read<CalculatorBloc>().add(CalculateResult()),
                   ),
                 ],
               ),
