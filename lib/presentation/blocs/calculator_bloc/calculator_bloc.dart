@@ -15,7 +15,7 @@ class CalculatorBloc extends Bloc<CalculatorEvent, CalculatorState> {
   }
   void _onAddNumber(AddNumber event, Emitter<CalculatorState> emit){
       if(state.isSecondNumber == false){
-        if(event.number == '' && state.firstNumber.contains('.')) return;
+        if(event.number == '.' && state.firstNumber.contains('.')) return;
         if(state.firstNumber == '0'){
           emit(state.copyWith(
             firstNumber: event.number,
