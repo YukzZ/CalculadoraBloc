@@ -26,3 +26,7 @@ class Reset extends CalculatorEvent{}
 class DeleteNumber extends CalculatorEvent{}
 
 class ChangeNegativePositive extends CalculatorEvent{}
+
+class SelectFirstNumber extends CalculatorEvent{}
+
+class SelectSecondNumber extends CalculatorEvent{}

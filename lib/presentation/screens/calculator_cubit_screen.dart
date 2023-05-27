@@ -36,9 +36,15 @@ class _CalculatorCubitView extends StatelessWidget {
                     Expanded(
                       child: Container(),
                     ),
-                    SubResult(text: state.firstNumber),
+                    InkWell(
+                      onTap: () => cubit.selectFirstNumber(),
+                      child: SubResult(text: state.firstNumber)
+                    ),
                     SubResult(text: state.operation),
-                    SubResult(text: state.secondNumber),
+                    InkWell(
+                      onTap: () => cubit.selectSecondNumber(),
+                      child: SubResult(text: state.secondNumber)
+                    ),
                     const LineSeparator(),
                     MainResultText(text: resultState.result),
                     Row(

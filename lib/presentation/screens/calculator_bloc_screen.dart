@@ -34,9 +34,19 @@ class BlocCalculatorView extends StatelessWidget {
                 child: Container(),
               ),
 
-              SubResult( text: context.select((CalculatorBloc calculatorBloc) => calculatorBloc.state.firstNumber) ),
+              InkWell(
+                onTap: () => context.read<CalculatorBloc>().add(SelectFirstNumber()),
+                child: SubResult( 
+                  text: context.select((CalculatorBloc calculatorBloc) => calculatorBloc.state.firstNumber) 
+                )
+              ),
               SubResult( text: context.select((CalculatorBloc calculatorBloc) => calculatorBloc.state.operation) ),
-              SubResult( text: context.select((CalculatorBloc calculatorBloc) => calculatorBloc.state.secondNumber) ),
+              InkWell(
+                onTap: () => context.read<CalculatorBloc>().add(SelectSecondNumber()),
+                child: SubResult( 
+                  text: context.select((CalculatorBloc calculatorBloc) => calculatorBloc.state.secondNumber) 
+                )
+              ),
               const LineSeparator(),
               MainResultText( text: context.select((CalculatorBloc calculatorBloc) => calculatorBloc.state.result) ),
 

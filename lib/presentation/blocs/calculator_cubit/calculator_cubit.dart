@@ -64,9 +64,9 @@ class CalculatorCubit extends Cubit<CalculatorState> {
       break;
     }
     emit(state.copyWith(
-      firstNumber: '0',
-      secondNumber: '0',
-      operation: '+',
+      // firstNumber: '0',
+      // secondNumber: '0',
+      // operation: '+',
       result: result.toString(),
       isSecondNumber: false,
     ));
@@ -115,5 +115,21 @@ class CalculatorCubit extends Cubit<CalculatorState> {
                     : '-${state.secondNumber}'
       ));
     }
+  }
+
+  void selectFirstNumber(){
+    if(state.isSecondNumber == false) return;
+    emit(state.copyWith(
+      isSecondNumber: false
+    )); 
+    
+  }
+
+  void selectSecondNumber(){
+    if(state.isSecondNumber == true) return;
+    emit(state.copyWith(
+      isSecondNumber: true
+    )); 
+    
   }
 }

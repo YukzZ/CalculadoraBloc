@@ -12,6 +12,8 @@ class CalculatorBloc extends Bloc<CalculatorEvent, CalculatorState> {
     on<Reset>(_onReset);
     on<DeleteNumber>(_onDeleteNumber);
     on<ChangeNegativePositive>(_onChangeNegativePositive);
+    on<SelectFirstNumber>(_onSelectFirstNumber);
+    on<SelectSecondNumber>(_onSelectSecondNumber);
   }
   void _onAddNumber(AddNumber event, Emitter<CalculatorState> emit){
       if(state.isSecondNumber == false){
@@ -72,9 +74,9 @@ class CalculatorBloc extends Bloc<CalculatorEvent, CalculatorState> {
       }
 
       emit(state.copyWith(
-        firstNumber: '0',
-        secondNumber: '0',
-        operation: '+',
+        // firstNumber: '0',
+        // secondNumber: '0',
+        // operation: '+',
         result: result.toString(),
         isSecondNumber: false,
       ));
@@ -122,5 +124,19 @@ class CalculatorBloc extends Bloc<CalculatorEvent, CalculatorState> {
                       : '-${state.secondNumber}'
         ));
       }
+    }
+
+    void _onSelectFirstNumber(SelectFirstNumber event, Emitter<CalculatorState> emit){
+      if(state.isSecondNumber == false) return;
+      emit(state.copyWith(
+        isSecondNumber: false
+      )); 
+    }
+
+    void _onSelectSecondNumber(SelectSecondNumber event, Emitter<CalculatorState> emit){
+      if(state.isSecondNumber == true) return;
+      emit(state.copyWith(
+        isSecondNumber: true
+      )); 
     }
 }
